@@ -26,7 +26,7 @@ export class UsuarioService {
     return await this.UsuarioRepository.find({});
   }
 
-  async findUsuarioById(id: Long): Promise<UsuarioEntity> {
+  async findUsuarioById(id: string): Promise<UsuarioEntity> {
     const Usuario: UsuarioEntity = await this.UsuarioRepository.findOne({
       where: { id },
     });

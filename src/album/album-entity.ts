@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { UsuarioEntity } from '../usuario/usuario-entity';
 import { FotoEntity } from '../foto/foto-entity';
-import { Column, Entity, Long, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class AlbumEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: Long;
+  id: string;
 
   @Column()
   titulo: string;

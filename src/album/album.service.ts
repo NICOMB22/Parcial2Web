@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { AlbumEntity } from './album-entity';
-import { InjectRepository } from '@nestjs/typeorm/dist';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FotoEntity } from 'src/foto/foto-entity';
 import {
   BusinessLogicException,
   BusinessError,
@@ -11,7 +12,7 @@ import {
 export class AlbumService {
   constructor(
     @InjectRepository(AlbumEntity)
-    private readonly AlbumRepository: Repository<AlbumEntity>,
+    private readonly albumRepository: Repository<AlbumEntity>,
   ) {}
 
   async createAlbum(album: AlbumEntity): Promise<AlbumEntity> {
@@ -19,32 +20,56 @@ export class AlbumService {
       throw new Error('El nombre del álbum es obligatorio.');
     }
 
-    return await this.AlbumRepository.save(album);
+    return await this.albumRepository.save(album);
   }
+
   async findAll(): Promise<AlbumEntity[]> {
-    return await this.AlbumRepository.find({});
+    return await this.albumRepository.find({});
   }
 
   async findAlbumById(id: string): Promise<AlbumEntity> {
-    const Album: AlbumEntity = await this.AlbumRepository.findOne({
+    const album = await this.albumRepository.findOne({
       where: { id },
     });
-
-    if (!Album)
+  
+    if (!album) {
       throw new BusinessLogicException(
         'El Album con el id especificado no existe',
         BusinessError.NOT_FOUND,
       );
-
-    return Album;
+    }
+  
+    return album;
   }
 
   async deleteAlbum(id: string) {
-    const album: AlbumEntity = await this.AlbumRepository.findOne({where:{id}});
-    if (!album)
-      throw new BusinessLogicException("The album with the given id was not found", BusinessError.NOT_FOUND);
+    const album = await this.albumRepository.findOne({
+      where: { id },
+    });
+    if (!album) {
+      throw new BusinessLogicException(
+        "El álbum con el id especificado no existe",
+        BusinessError.NOT_FOUND
+      );
+    }
  
-    await this.AlbumRepository.remove(album); 
-}
+    await this.albumRepository.remove(album); 
+  }
 
+  async addPhotoToAlbum(albumId: string, fotoId: string): Promise<AlbumEntity> {
+    const album = await this.albumRepository.findOne({ where: { id: albumId }, relations: ['fotos'] });
+    if (!album) {
+      throw new BusinessLogicException('El álbum no existe', BusinessError.NOT_FOUND);
+    }
+
+    const foto = await this.fotoRepository.findOne({ where: { id: fotoId } });
+    if (!foto) {
+      throw new BusinessLogicException('La foto no existe', BusinessError.NOT_FOUND);
+    }
+
+    foto.album = album;
+    await this.fotoRepository.save(foto);
+
+    return this.albumRepository.findOne({ where: { id: albumId }, relations: ['fotos'] });
+  }
 }

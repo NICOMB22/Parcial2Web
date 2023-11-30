@@ -1,13 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { RedSocialEntity } from 'src/redsocial/red-social-entity';
 import { UsuarioEntity } from '../usuario/usuario-entity';
-import { Column, Entity, Long, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { AlbumEntity } from 'src/album/album-entity';
 
 @Entity()
 export class FotoEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: Long;
+  id: string;
 
   @Column()
   ISO: number;
