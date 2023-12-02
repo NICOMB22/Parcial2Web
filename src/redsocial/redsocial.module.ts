@@ -1,7 +1,13 @@
 import { Module } from '@nestjs/common';
-import { RedsocialService } from './redsocial.service';
+import { RedSocialService } from './redsocial.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { RedSocialEntity } from './red-social-entity';
+
+
 
 @Module({
-  providers: [RedsocialService]
+  providers: [RedSocialService],
+  imports: [TypeOrmModule.forFeature([RedSocialEntity])]
 })
-export class RedsocialModule {}
+
+export class RedSocialModule {}

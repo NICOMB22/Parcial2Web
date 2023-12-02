@@ -21,7 +21,7 @@ export class RedSocialService {
     }
 
     else if (redSocial.slogan.length <= 10) {
-        throw new Error('El slogan no debe estar vacio');
+        throw new Error('El slogan debe tener mas de 10 caracteres');
       }
 
     return await this.RedSocialRepository.save(redSocial);

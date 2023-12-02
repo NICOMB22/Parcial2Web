@@ -2,7 +2,7 @@
 import { FotoEntity } from '../foto/foto-entity';
 import { AlbumEntity } from '../album/album-entity';
 import { Column, ManyToOne, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { RedSocialEntity } from 'src/redsocial/red-social-entity';
+import { RedSocialEntity } from '../redsocial/red-social-entity';
 
 @Entity()
 export class UsuarioEntity {

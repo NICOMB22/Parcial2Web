@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { AlbumEntity } from './album-entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FotoEntity } from 'src/foto/foto-entity';
+import { FotoEntity } from '../foto/foto-entity';
 import {
   BusinessLogicException,
   BusinessError,
@@ -13,6 +13,8 @@ export class AlbumService {
   constructor(
     @InjectRepository(AlbumEntity)
     private readonly albumRepository: Repository<AlbumEntity>,
+    @InjectRepository(FotoEntity) 
+    private readonly fotoRepository: Repository<FotoEntity>,
   ) {}
 
   async createAlbum(album: AlbumEntity): Promise<AlbumEntity> {
@@ -34,7 +36,7 @@ export class AlbumService {
   
     if (!album) {
       throw new BusinessLogicException(
-        'El Album con el id especificado no existe',
+        'El Album con el ID especificado no existe',
         BusinessError.NOT_FOUND,
       );
     }
@@ -48,7 +50,7 @@ export class AlbumService {
     });
     if (!album) {
       throw new BusinessLogicException(
-        "El álbum con el id especificado no existe",
+        "El álbum con el ID especificado no existe",
         BusinessError.NOT_FOUND
       );
     }
