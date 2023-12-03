@@ -1,4 +1,4 @@
-import { Body, Controller, Delete,HttpCode,Get,Param,Post,UseInterceptors, } from '@nestjs/common';
+import { Body, Controller, Delete,HttpCode,Get,Param,Post,UseInterceptors, Put} from '@nestjs/common';
 import { AlbumService } from './album.service';
 import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors/business-errors.interceptor';
 import { AlbumDto } from './album.dto';
@@ -24,6 +24,11 @@ export class AlbumController {
   async createAlbum(@Body() albumDto: AlbumDto) {
     const album: AlbumEntity = plainToInstance(AlbumEntity, albumDto);
     return await this.albumService.createAlbum(album);
+  }
+
+  @Put(':albumId/photos/:fotoId')
+  async addPhotoToAlbum(@Param('albumId') albumId: string, @Param('fotoId') fotoId: string): Promise<AlbumEntity> {
+    return await this.albumService.addPhotoToAlbum(albumId, fotoId);
   }
 
   @Delete(':AlbumId')

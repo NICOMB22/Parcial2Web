@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "ba21912f-d0fb-4699-b61b-d2c07496dd8f",
+		"name": "RedSocial",
+		"description": "# About this collection\n\nPostman's powerful scripting feature helps you to write a range of API tests in JavaScript, including integration, regression, and contract tests.\n\n## Using the collection\n\n**Step 1:** Send the sample requests and view the response and test results.\n\n**Step 2:** Replace the sample request URLs with your desired API endpoints.\n\n**Step 3:** Customize the tests in the \"Tests\" tab if needed. Don't forget to save your changes.\n\n## Quick tips for writing tests\n\n- Organize your test scenarios by grouping your requests in [collections](https://www.getpostman.com/docs/v6/postman/collections/intro_to_collections) and [folders](https://www.getpostman.com/docs/v6/postman/collections/managing_collections#adding-folders), and naming them descriptively\n- Document your API’s requirements using [markdown in the descriptions](https://www.getpostman.com/docs/v6/postman/collections/using_markdown_for_descriptions)\n- Use [variables](https://www.getpostman.com/docs/v6/postman/environments_and_globals/variables) to simulate more sophisticated user flows\n- Common tests that will be run after every request can be added to collection-level tests or folder-level tests\n    \n\n## Resources\n\n[Test scripts](https://www.getpostman.com/docs/v6/postman/scripts/test_scripts)\n\n[Test examples](https://www.getpostman.com/docs/v6/postman/scripts/test_examples)\n\n[Quick reference guide](https://community.getpostman.com/t/the-postman-cheatsheet-quick-reference-guide/1054)\n\n[Examples and guides](https://github.com/DannyDainton/All-Things-Postman)\n\n[Writing tests in Postman](http://blog.getpostman.com/2017/10/25/writing-tests-in-postman/)\n\n[API testing tips from a Postman professional](http://blog.getpostman.com/2017/07/28/api-testing-tips-from-a-postman-professional/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25814138",
+		"_collection_link": "https://cloudy-crater-15791.postman.co/workspace/Parcial2~56291893-c4ea-4445-8f83-8c31ac9fa4b6/collection/25814138-ba21912f-d0fb-4699-b61b-d2c07496dd8f?action=share&source=collection_link&creator=25814138"
+	},
+	"item": [
+		{
+			"name": "Create Libreria",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"id\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"ejnombre\",\r\n  \"slogan\": \"12345678901\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/redsocial",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"redsocial"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Libreria",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"ejnombre\",\r\n  \"slogan\": \"12345678901\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/redsocial",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"redsocial"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"nombre\": \"ejnombre\",\r\n    \"slogan\": \"12345678901\",\r\n    \"id\": \"091343f7-bffd-4aac-ac52-86ef16b45179\"\r\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

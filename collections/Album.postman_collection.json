@@ -1,0 +1,532 @@
+{
+	"info": {
+		"_postman_id": "066498cc-14e8-4a4d-afa9-3c504d5fd029",
+		"name": "Album",
+		"description": "# About this collection\n\nThis collection helps you set up contract tests to ensure that two separate systems are compatible and can communicate with one another.\n\n## **Using the collection**\n\n**Step 1:** Send the sample requests and view the response and test results.\n\n**Step 2:** Replace the sample request URLs with your desired API endpoints.\n\n**Step 3:** Customize the tests in the \"Tests\" tab if needed. Don't forget to save your changes.\n\n### Resources\n\n[Scripting in Postman](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/)\n\n[Test script examples](https://learning.postman.com/docs/writing-scripts/script-references/test-examples/)\n\n[Postman Sandbox API reference](https://learning.postman.com/docs/sending-requests/grpc/postman-sandbox-api/#writing-assertions)\n\n[Using the Collection Runner](https://learning.postman.com/docs/collections/running-collections/intro-to-collection-runs/)\n\n[  \n](https://postman.postman.co/documentation/24552533-5bead607-0197-4e1d-87d4-3160bc7631c1?entity=&branch=&version=)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25814138",
+		"_collection_link": "https://cloudy-crater-15791.postman.co/workspace/Parcial2~56291893-c4ea-4445-8f83-8c31ac9fa4b6/collection/25814138-066498cc-14e8-4a4d-afa9-3c504d5fd029?action=share&source=collection_link&creator=25814138"
+	},
+	"item": [
+		{
+			"name": "Create Album",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()",
+							"pm.globals.set(\"id\", data.id);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"titulo\": \"ejtitulo2\",\r\n  \"fechaFin\": \"2022-03-21T13:00:00Z\",\r\n  \"fechaInicio\": \"2021-03-21T13:00:00Z\",\r\n  \"description\": \"Album Description\",\r\n  \"usuarios\": [],\r\n  \"fotos\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/albums",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"albums"
+					]
+				},
+				"description": "The tests in this request validate that:\n\n- the response code is 200\n- the response is a JSON object\n- the response has an 'arg' object\n- the response has 'headers' object\n- the response has a 'URL' property"
+			},
+			"response": [
+				{
+					"name": "Create Album",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"titulo\": \"ejtitulo2\",\r\n  \"fechaFin\": \"2022-03-21T13:00:00Z\",\r\n  \"fechaInicio\": \"2021-03-21T13:00:00Z\",\r\n  \"description\": \"Album Description\",\r\n  \"usuarios\": [],\r\n  \"fotos\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/albums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"albums"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"titulo\": \"ejtitulo2\",\r\n    \"fechaFin\": \"2022-03-21T13:00:00Z\",\r\n    \"fechaInicio\": \"2021-03-21T13:00:00Z\",\r\n    \"description\": \"Album Description\",\r\n    \"usuarios\": [],\r\n    \"fotos\": [],\r\n    \"id\": \"a06f138c-4b9d-47f1-8df4-d7e63a62b217\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Find all albums",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of albums > ' + 0, function () {\r",
+							"   var data = pm.response.json()\r",
+							"   pm.expect(data.length).to.greaterThan(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/albums",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"albums"
+					]
+				},
+				"description": "The tests in the request validate the response code and the data returned in the response is the same as the one being sent."
+			},
+			"response": [
+				{
+					"name": "Find all albums",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/albums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"albums"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "[\r\n    {\r\n        \"id\": \"284f8a9c-1bec-412e-b4ab-ab9a7055fe46\",\r\n        \"titulo\": \"ejtitulo2\",\r\n        \"fechaFin\": \"2022-03-21T13:00:00.000Z\",\r\n        \"fechaInicio\": \"2021-03-21T13:00:00.000Z\"\r\n    },\r\n    {\r\n        \"id\": \"db2c81c6-c1e1-4236-93fe-e1d0bc837cda\",\r\n        \"titulo\": \"ejtitulo2\",\r\n        \"fechaFin\": \"2022-03-21T13:00:00.000Z\",\r\n        \"fechaInicio\": \"2021-03-21T13:00:00.000Z\"\r\n    },\r\n    {\r\n        \"id\": \"c9e9e5cc-d23e-4fac-95b9-978c8372b150\",\r\n        \"titulo\": \"ejtitulo2\",\r\n        \"fechaFin\": \"2022-03-21T13:00:00.000Z\",\r\n        \"fechaInicio\": \"2021-03-21T13:00:00.000Z\"\r\n    }\r\n]"
+				}
+			]
+		},
+		{
+			"name": "Find Album by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "foo1",
+							"value": "bar1",
+							"type": "text"
+						},
+						{
+							"key": "foo2",
+							"value": "bar2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/albums/284f8a9c-1bec-412e-b4ab-ab9a7055fe46",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"albums",
+						"284f8a9c-1bec-412e-b4ab-ab9a7055fe46"
+					]
+				},
+				"description": "The tests in this request validate that the request body sent as form-data is valid."
+			},
+			"response": [
+				{
+					"name": "Find Album by ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "foo1",
+									"value": "bar1",
+									"type": "text"
+								},
+								{
+									"key": "foo2",
+									"value": "bar2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/albums/9cb925fd-5ded-46cb-b628-601f2a243b33",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"albums",
+								"9cb925fd-5ded-46cb-b628-601f2a243b33"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"id\": \"284f8a9c-1bec-412e-b4ab-ab9a7055fe46\",\r\n    \"titulo\": \"ejtitulo2\",\r\n    \"fechaFin\": \"2022-03-21T13:00:00.000Z\",\r\n    \"fechaInicio\": \"2021-03-21T13:00:00.000Z\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Album by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "foo1",
+							"value": "bar1",
+							"type": "text"
+						},
+						{
+							"key": "foo2",
+							"value": "bar2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/albums/a06f138c-4b9d-47f1-8df4-d7e63a62b217",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"albums",
+						"a06f138c-4b9d-47f1-8df4-d7e63a62b217"
+					]
+				},
+				"description": "The tests in this request validate that the request body sent as form-data is valid."
+			},
+			"response": [
+				{
+					"name": "Delete Album by ID",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "foo1",
+									"value": "bar1",
+									"type": "text"
+								},
+								{
+									"key": "foo2",
+									"value": "bar2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/albums/a06f138c-4b9d-47f1-8df4-d7e63a62b217",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"albums",
+								"a06f138c-4b9d-47f1-8df4-d7e63a62b217"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Delete Album No Existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"El álbum con el ID especificado no existe\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "foo1",
+							"value": "bar1",
+							"type": "text"
+						},
+						{
+							"key": "foo2",
+							"value": "bar2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/albums/9cb925fd-5ded-46cb-b628-601f2a243b36",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"albums",
+						"9cb925fd-5ded-46cb-b628-601f2a243b36"
+					]
+				},
+				"description": "The tests in this request validate that the request body sent as form-data is valid."
+			},
+			"response": [
+				{
+					"name": "Delete Album No Existe",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "foo1",
+									"value": "bar1",
+									"type": "text"
+								},
+								{
+									"key": "foo2",
+									"value": "bar2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/albums/9cb925fd-5ded-46cb-b628-601f2a243b36",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"albums",
+								"9cb925fd-5ded-46cb-b628-601f2a243b36"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"statusCode\": 404,\r\n    \"message\": \"El álbum con el ID especificado no existe\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Add Photo to Album",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<!-- descripcion: despues de albums/ se debe poner la llave del album a la que se le quiere asignar una foto, y despues de photos/ la llave de la foto que se desea asignar. Este caso se quiso probar ya que es el mas complejo de todas las pruebas, pues involucra una actualizacion de una entidad mediante una asociacion con otra.",
+					"options": {
+						"raw": {
+							"language": "html"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/albums/284f8a9c-1bec-412e-b4ab-ab9a7055fe46/photos/d5c8ef99-d617-4eb1-ae85-3f7a81cefbdd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"albums",
+						"284f8a9c-1bec-412e-b4ab-ab9a7055fe46",
+						"photos",
+						"d5c8ef99-d617-4eb1-ae85-3f7a81cefbdd"
+					]
+				},
+				"description": "The tests in this request validate that the request body sent as form-data is valid."
+			},
+			"response": [
+				{
+					"name": "Add Photo to Album",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/albums/284f8a9c-1bec-412e-b4ab-ab9a7055fe46/photos/d5c8ef99-d617-4eb1-ae85-3f7a81cefbdd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"albums",
+								"284f8a9c-1bec-412e-b4ab-ab9a7055fe46",
+								"photos",
+								"d5c8ef99-d617-4eb1-ae85-3f7a81cefbdd"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"id\": \"284f8a9c-1bec-412e-b4ab-ab9a7055fe46\",\r\n    \"titulo\": \"ejtitulo2\",\r\n    \"fechaFin\": \"2022-03-21T13:00:00.000Z\",\r\n    \"fechaInicio\": \"2021-03-21T13:00:00.000Z\",\r\n    \"fotos\": [\r\n        {\r\n            \"id\": \"d5c8ef99-d617-4eb1-ae85-3f7a81cefbdd\",\r\n            \"ISO\": 160,\r\n            \"velObturacion\": 4,\r\n            \"apertura\": 5,\r\n            \"fecha\": \"2022-03-21T13:00:00.000Z\"\r\n        }\r\n    ]\r\n}"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://postman-echo.com"
+		}
+	]
+}

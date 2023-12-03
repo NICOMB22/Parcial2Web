@@ -1,0 +1,374 @@
+{
+	"info": {
+		"_postman_id": "1c9cade1-4efe-45bc-b7f2-7ebd9f702848",
+		"name": "Foto",
+		"description": "# About this collection\n\nPostman allows you to test your APIs using simple Javascript code. You can evaluate your response body, headers, cookies, and more using the [ChaiJS BDD](https://www.chaijs.com/api/bdd/) syntax.\n\nThis collection guides you through the process of setting up an integration test to ensure that all individual components of an API function together seamlessly.\n\nThe API under test in this collection includes three endpoints for registering and receiving a token, accessing your unique generated name, and unregistering a token:\n\n- POST `/register`\n- POST `/unregister`\n- GET `/my-name`\n    \n\nBy setting up requests in the order of the operation, we can test the flow of data to and from the endpoints and ensure they work together as expected. We also verify that the data persists between requests on the back end.\n\n## **Using this collection**\n\n**Step 1:** Check out the requests' documentation to learn more about -\n\n- what each request is meant to do.\n- the tests we've added against each one.\n    \n\n**Step 2:** Run this collection by clicking on \"Run\".\n\n<img src=\"https://content.pstmn.io/84019b0f-69c8-4c5f-98b9-2c90a6f9a0b1/Y29sbGVjdGlvbi1ydW5uZXItYnV0dG9uLmpwZWc=\" width=\"266\" height=\"103\">\n\n**Step 3:** To customize this collection, replace the request URLs with your API endpoints and add or edit the tests if needed.\n\n## Resources\n\n[Scripting in Postman](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/)\n\n[Test script examples](https://learning.postman.com/docs/writing-scripts/script-references/test-examples/)\n\n[Postman Sandbox API reference](https://learning.postman.com/docs/sending-requests/grpc/postman-sandbox-api/#writing-assertions)\n\n[Using the Collection Runner](https://learning.postman.com/docs/collections/running-collections/intro-to-collection-runs/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25814138",
+		"_collection_link": "https://cloudy-crater-15791.postman.co/workspace/Parcial2~56291893-c4ea-4445-8f83-8c31ac9fa4b6/collection/25814138-1c9cade1-4efe-45bc-b7f2-7ebd9f702848?action=share&source=collection_link&creator=25814138"
+	},
+	"item": [
+		{
+			"name": "Create Foto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()",
+							"pm.globals.set(\"id\", data.id);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ISO\": 160,\r\n  \"velObturacion\": 4,\r\n  \"apertura\": 5,\r\n  \"fecha\": \"2022-03-21T13:00:00Z\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/fotos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"fotos"
+					]
+				},
+				"description": "This returns a `token` that you can use to retrieve information later on.\n\nWe have included a test to confirm if a token is returned. We have also added test scripts to copy the token to the `token` collection variable. This makes it easy for us to reuse this token in other requests in the collection."
+			},
+			"response": [
+				{
+					"name": "Create Foto",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ISO\": 160,\r\n  \"velObturacion\": 4,\r\n  \"apertura\": 5,\r\n  \"fecha\": \"2022-03-21T13:00:00Z\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/fotos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"fotos"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"ISO\": 160,\r\n    \"velObturacion\": 4,\r\n    \"apertura\": 5,\r\n    \"fecha\": \"2022-03-21T13:00:00Z\",\r\n    \"id\": \"2a8a8beb-3a59-4dcc-9762-ea80971563d7\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Find all fotos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of fotos > ' + 0, function () {",
+							"   var data = pm.response.json()",
+							"   pm.expect(data.length).to.greaterThan(0)",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<!-- descripcion: Este caso se quiso probar ya que se quiso comprobar que se obtuvieran todas las fotos.",
+					"options": {
+						"raw": {
+							"language": "html"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/fotos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"fotos"
+					]
+				},
+				"description": "This request uses the saved `token` collection variable to access a secret 'name' stored against that token.\n\nIn this request, we used the `token` collection variable as a query param to fetch the name generated for that token. We have added a test to check that a name is correctly returned."
+			},
+			"response": [
+				{
+					"name": "Find all fotos",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/my-name?token={{token}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"my-name"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "[\r\n    {\r\n        \"id\": \"d5c8ef99-d617-4eb1-ae85-3f7a81cefbdd\",\r\n        \"ISO\": 160,\r\n        \"velObturacion\": 4,\r\n        \"apertura\": 5,\r\n        \"fecha\": \"2022-03-21T13:00:00.000Z\"\r\n    },\r\n    {\r\n        \"id\": \"2a8a8beb-3a59-4dcc-9762-ea80971563d7\",\r\n        \"ISO\": 160,\r\n        \"velObturacion\": 4,\r\n        \"apertura\": 5,\r\n        \"fecha\": \"2022-03-21T13:00:00.000Z\"\r\n    }\r\n]"
+				}
+			]
+		},
+		{
+			"name": "Find Foto by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/fotos/2a8a8beb-3a59-4dcc-9762-ea80971563d7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"fotos",
+						"2a8a8beb-3a59-4dcc-9762-ea80971563d7"
+					]
+				},
+				"description": "This request un-registers a token by using the token collection variable in the POST body.\n\nWe also added a test to ensure the response has a 200 OK status code."
+			},
+			"response": [
+				{
+					"name": "Find Foto by ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/fotos/5bcbf1fe-5a40-4585-8986-99e7b3dd0d50",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"fotos",
+								"5bcbf1fe-5a40-4585-8986-99e7b3dd0d50"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"id\": \"2a8a8beb-3a59-4dcc-9762-ea80971563d7\",\r\n    \"ISO\": 160,\r\n    \"velObturacion\": 4,\r\n    \"apertura\": 5,\r\n    \"fecha\": \"2022-03-21T13:00:00.000Z\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Foto by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"{{token}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/fotos/2a8a8beb-3a59-4dcc-9762-ea80971563d7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"fotos",
+						"2a8a8beb-3a59-4dcc-9762-ea80971563d7"
+					]
+				},
+				"description": "This request un-registers a token by using the token collection variable in the POST body.\n\nWe also added a test to ensure the response has a 200 OK status code."
+			},
+			"response": [
+				{
+					"name": "Delete Foto by ID",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"{{token}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/fotos/5bcbf1fe-5a40-4585-8986-99e7b3dd0d50",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"fotos",
+								"5bcbf1fe-5a40-4585-8986-99e7b3dd0d50"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "baseUrl",
+			"value": "https://postman-integration-testing.glitch.me/"
+		}
+	]
+}
